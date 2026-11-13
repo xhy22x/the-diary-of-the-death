@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Suspense } from "react";
 import { Providers } from "./providers";
 import { getStaticParams } from "@/locales/server";
 import Navbar from "./components/navbar";
@@ -19,8 +20,10 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
     <html lang={locale}>
       <body>
         <Providers locale={locale}>
-          <Navbar />
-          {children}
+          <Suspense fallback={<p>Loading...</p>}>
+            <Navbar />
+            {children}
+          </Suspense>
         </Providers>
       </body>
     </html>
